@@ -1,23 +1,65 @@
 package ru.netology.practiceBlock12.service;
 
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
 
 public class PosterManagerTest {
 
-   /* PosterManager movie1 = new PosterManager("Бладшот");
-    PosterManager movie2 = new PosterManager("Вперед");
-    PosterManager movie3 = new PosterManager("Отель /'Белград'/");
-    PosterManager movie4 = new PosterManager("Джентельмены");
-    PosterManager movie5 = new PosterManager("Человек-невидимка");
-    PosterManager movie6 = new PosterManager("Тролли. Мировой тур");
-    PosterManager movie7 = new PosterManager("Номер Один");
-*/
-    PosterManager manager = new PosterManager();
-    PosterManager movie1 = new PosterManager(7);
-
     @Test
     public void addMoviesTest() {
-        manager.add(movie1);
+        PosterManager manager = new PosterManager();
+        manager.add("Бладшот");
 
+        String[] expected = {"Бладшот"};
+        String[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void retrieveMoviesTest() {
+        PosterManager manager = new PosterManager(2);
+        manager.add("Бладшот");
+        manager.add("Вперед");
+        manager.findAll();
+
+        String[] expected = {"Бладшот", "Вперед"};
+        String[] actual = manager.findAll();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findAboveDefaultLimitReversedTest(){
+        PosterManager manager = new PosterManager(6);
+//        String[] movies = {"Бладшот", "Вперед", "Отель /'Белград'/", "Джентельмены", "Человек-невидимка", "Тролли. Мировой тур", "Номер Один"};
+        manager.add("Бладшот");
+        manager.add("Вперед");
+        manager.add("Отель /'Белград'/");
+        manager.add("Джентельмены");
+        manager.add("Человек-невидимка");
+        manager.add("Тролли. Мировой тур");
+        manager.findLast();
+
+        String[] expected = {"Тролли. Мировой тур", "Человек-невидимка", "Джентельмены", "Отель /'Белград'/", "Вперед", "Бладшот"};
+        String[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void findBelowDefaultLimitReversedTest(){
+        PosterManager manager = new PosterManager();
+
+        manager.add("Бладшот");
+        manager.add("Вперед");
+        manager.add("Отель /'Белград'/");
+        manager.findLast();
+
+        String[] expected = {"Отель /'Белград'/", "Вперед", "Бладшот"};
+        String[] actual = manager.findLast();
+
+        Assertions.assertArrayEquals(expected, actual);
     }
 }
